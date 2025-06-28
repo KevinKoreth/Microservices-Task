@@ -1,0 +1,34 @@
+version: '3.8'
+
+services:
+  user-service:
+    build:
+      context: ./Microservices/user-service
+    ports:
+      - "3000:3000"
+    restart: unless-stopped
+
+  product-service:
+    build:
+      context: ./Microservices/product-service
+    ports:
+      - "3001:3001"
+    restart: unless-stopped
+
+  order-service:
+    build:
+      context: ./Microservices/order-service
+    ports:
+      - "3002:3002"
+    restart: unless-stopped
+
+  gateway-service:
+    build:
+      context: ./Microservices/gateway-service
+    ports:
+      - "3003:3003"
+    restart: unless-stopped
+    depends_on:
+      - user-service
+      - product-service
+      - order-service
